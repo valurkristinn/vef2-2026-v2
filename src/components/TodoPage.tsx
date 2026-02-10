@@ -1,6 +1,7 @@
-import type { FC } from 'hono/jsx';
+import type { FC } from "hono/jsx";
 
-import type { Todo } from '../types.js';
+import type { Todo } from "../types.js";
+import { TodoList } from "./todoList.js";
 
 type TodoPageProps = {
   todos?: Todo[];
@@ -9,8 +10,11 @@ type TodoPageProps = {
 export const TodoPage: FC<TodoPageProps> = ({ todos = [] }) => {
   return (
     <section>
-      <p>Halló hono heimur!</p>
-      <p>Ég fékk {todos.length} verkefni.</p>
+      <form method="post" action="/add">
+        <input type="text" name="title"></input>
+        <button>Bæta við </button>
+      </form>
+      <TodoList title="todos" todos={todos} />
     </section>
   );
 };

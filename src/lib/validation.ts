@@ -1,3 +1,6 @@
 import { z } from 'zod';
 
-// TODO zod schema
+
+export const todoSchema = z.object({
+  title: z.string()
+})

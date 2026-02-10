@@ -142,6 +142,12 @@ export async function updateTodo(
  */
 export async function deleteTodo(id: number): Promise<boolean | null> {
   // DELETE FROM todos WHERE id = $1
+
+  const result = await query("DELETE FROM todos WHERE id = $1", [id]);
+
+  if (result) return true;
+
+  return null;
 }
 
 /**
@@ -150,4 +156,10 @@ export async function deleteTodo(id: number): Promise<boolean | null> {
  */
 export async function deleteFinishedTodos(): Promise<number | null> {
   // DELETE FROM todos WHERE finished = true
+
+  const result = await query("DELETE FROM todos WHERE finished = true", );
+
+  if (result) return result.rowCount;
+
+  return null;
 }

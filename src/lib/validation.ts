@@ -2,5 +2,7 @@ import { z } from 'zod';
 
 
 export const todoSchema = z.object({
-  title: z.string()
+  id: z.coerce.number(),
+  title: z.string(),
+  finished: z.coerce.boolean()
 })

@@ -1,7 +1,14 @@
 import { Hono } from "hono";
 import { serveStatic } from "@hono/node-server/serve-static";
 import { TodoPage } from "./components/TodoPage.js";
-import { init, listTodos, createTodo } from "./lib/db.js";
+import {
+  init,
+  listTodos,
+  createTodo,
+  updateTodo,
+  deleteTodo,
+  deleteFinishedTodos,
+} from "./lib/db.js";
 import { Layout } from "./components/layout.js";
 import { todoSchema } from "./lib/validation.js";
 import { z } from "zod";
@@ -36,9 +43,68 @@ app.post("/add", async (c) => {
 
   if (!result.success) {
     console.error(z.flattenError(result.error));
-    return c.html(<ErrorPage><p>Ranglega formaður strengur</p></ErrorPage>);
+    return c.html(
+      <ErrorPage>
+        <p>Ranglega formaður strengur</p>
+      </ErrorPage>,
+    );
   }
   createTodo(result.data.title);
 
   return c.text("móttekið!");
+});
+
+app.post("/update/:id", async (c) => {
+  const body = await c.req.parseBody();
+  const id = c.req.param("id");
+
+  const todo = { id: id, title: body.title, finished: body.finished };
+
+  const result = todoSchema.safeParse(todo);
+
+  if (!result.success) {
+    console.error(z.flattenError(result.error));
+    return c.html(
+      <ErrorPage>
+        <p>Reyndu aftur síðar</p>
+      </ErrorPage>,
+    );
+  }
+
+  await updateTodo(result.data.id, result.data.title, result.data.finished);
+
+  return c.redirect("/");
+});
+
+app.post("/delete/:id", async (c) => {
+  const id = c.req.param("id");
+
+  const result = todoSchema.safeParse({ id: id });
+
+  if (!result.success) {
+    console.error(z.flattenError(result.error));
+    return c.html(
+      <ErrorPage>
+        <p>Reyndu aftur síðar</p>
+      </ErrorPage>,
+    );
+  }
+
+  await deleteTodo(result.data.id);
+
+  return c.redirect("/");
+});
+
+app.post("/delete/finished", async (c) => {
+  await deleteFinishedTodos();
+
+  return c.redirect("/");
+});
+
+app.notFound((c) => {
+  return c.html(
+    <ErrorPage>
+      <p>Síða fannst ekki</p>
+    </ErrorPage>,
+  );
 });

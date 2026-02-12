@@ -1,1 +1,148 @@
 /* todo stílar, notið úr v8 í vef1-2025! */
+
+a,
+button,
+input {
+  transition: 0.3s ease-in-out;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+  outline: none;
+}
+
+* {
+  font-family: "Sono", monospace;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+  font-variation-settings: "MONO" 1;
+  color: #3e3b38;
+}
+
+body,
+main {
+  margin: 0;
+  padding: 0;
+  background-color: #f5ebe0;
+}
+
+main {
+  position: relative;
+  width: min(90vw, 600px);
+  left: max(5vw, calc(50vw - 300px));
+}
+
+a {
+  color: #7b7670;
+  text-decoration: none;
+  font-size: 1em;
+}
+
+a:hover {
+  color: #100f0e;
+}
+
+nav {
+  padding: 20px;
+  background-color: #f5ebe0;
+}
+
+ul {
+  display: flex;
+  gap: 50px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+section {
+  background-color: #faf2ea;
+}
+
+article {
+  background-color: #fff9f4;
+
+  div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  input {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+section,
+article {
+  border-radius: 30px;
+  padding: 20px;
+  margin-bottom: 50px;
+}
+
+button {
+  border-radius: 25px;
+  padding: 15px 20px;
+  border: 3px solid #f5ebe0;
+  color: #3e3b38;
+  background-color: #fff9f4;
+  font-size: 1.1em;
+  white-space: nowrap;
+}
+
+button:hover {
+  transform: translateY(-1px);
+  box-shadow: rgba(149, 157, 165, 0.1) 0px 4px 12px;
+}
+
+button:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+section>div {
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+form {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin: 0;
+
+  input[type="text"] {
+    border-radius: 25px;
+    padding: 15px 20px;
+    font-size: 1.1em;
+    border: 3px solid #f5ebe0;
+    color: #3e3b38;
+    background-color: #fff9f4;
+    flex-grow: 1;
+    min-width: 100px;
+    width: 180px;
+  }
+}
+
+.error h1 {
+  color: red;
+}
+
+.success h1 {
+  color: green;
+}
+
+.error,
+.success {
+  padding: 40px;
+  
+  h1 {
+    margin-top: 0;
+  }
+}

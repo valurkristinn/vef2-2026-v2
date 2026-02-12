@@ -13,19 +13,21 @@ export const TodoPage: FC<TodoPageProps> = ({ todos = [] }) => {
 
   return (
     <section>
-      <form method="post" action="/add">
-        <input type="text" name="title"></input>
-        <button>Bæta við </button>
-      </form>
-      {todos.length == 0 && <p>Engin todo fundust</p>}
-      {finished.length > 0 && (
-        <form method="post" action="/delete/finished">
-          <button>Eyða loknum todos</button>
+      <div>
+        <form method="post" action="/add">
+          <input type="text" name="title"></input>
+          <button>Bæta við </button>
         </form>
-      )}
-      <TodoList title="Allur listinn" todos={todos} />
-      <TodoList title="Ókláruð todo" todos={unfinished} />
-      <TodoList title="Kláruð todo" todos={finished} />
+        {todos.length == 0 && <p>Engin todo fundust</p>}
+        {finished.length > 0 && (
+          <form method="post" action="/delete/finished">
+            <button>Eyða loknum todos</button>
+          </form>
+        )}
+      </div>
+      <TodoList title="Öll todo" todos={todos} />
+      <TodoList title="Ólokin todo" todos={unfinished} />
+      <TodoList title="Lokin todo" todos={finished} />
     </section>
   );
 };

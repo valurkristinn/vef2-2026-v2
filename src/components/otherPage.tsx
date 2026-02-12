@@ -8,10 +8,10 @@ export const OtherPage: FC<{ error?: string; children?: Child }> = ({
   const type = error ? "error" : "success";
   return (
     <Layout title={`${type}`}>
-      <main class={`${type}`}>
+      <section class={`${type}`}>
         {children}
         <a href="/">Til baka</a>
-      </main>
+      </section>
     </Layout>
   );
 };

@@ -37,6 +37,17 @@ app.get("/", async (c) => {
   return c.html(html);
 });
 
+app.get("/about", async (c) => {
+  const html = (
+    <OtherPage>
+      <h1>Um verkefnið</h1>
+      <p>Þetta er verkefni 2 fyrir áfangann HBV403G Vefforritun 2</p>
+    </OtherPage>
+  );
+
+  return c.html(html);
+});
+
 app.post("/add", async (c) => {
   const body = await c.req.parseBody();
 
@@ -118,7 +129,7 @@ app.post("/delete/:id", async (c) => {
 app.notFound((c) => {
   return c.html(
     <OtherPage error="x">
-      <h1>Villa kom upp!</h1>
+      <h1>404 Villa</h1>
       <p>Síða fannst ekki</p>
     </OtherPage>,
   );

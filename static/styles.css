@@ -30,15 +30,15 @@ main {
 }
 
 main {
-  position: relative;
-  width: min(90vw, 600px);
-  left: max(5vw, calc(50vw - 300px));
+  width: min(95vw, 600px);
+  margin: 0 auto;
+  padding: 0 10px;
 }
 
 a {
   color: #7b7670;
   text-decoration: none;
-  font-size: 1em;
+  font-size: clamp(0.9em, 2.5vw, 1em);
 }
 
 a:hover {
@@ -46,16 +46,17 @@ a:hover {
 }
 
 nav {
-  padding: 20px;
+  padding: 15px 10px;
   background-color: #f5ebe0;
 }
 
 ul {
   display: flex;
-  gap: 50px;
+  gap: clamp(20px, 5vw, 50px);
   list-style: none;
   padding: 0;
   margin: 0;
+  flex-wrap: wrap;
 }
 
 section {
@@ -64,33 +65,35 @@ section {
 
 article {
   background-color: #fff9f4;
+}
 
-  div {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+article div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
 
-  input {
-    width: 24px;
-    height: 24px;
-  }
+article input {
+  width: 20px;
+  height: 20px;
 }
 
 section,
 article {
-  border-radius: 30px;
-  padding: 20px;
-  margin-bottom: 50px;
+  border-radius: 20px;
+  padding: clamp(15px, 4vw, 20px);
+  margin-bottom: 20px;
 }
 
 button {
-  border-radius: 25px;
-  padding: 15px 20px;
-  border: 3px solid #f5ebe0;
+  border-radius: 20px;
+  padding: clamp(10px, 3vw, 15px) clamp(15px, 4vw, 20px);
+  border: 2px solid #f5ebe0;
   color: #3e3b38;
   background-color: #fff9f4;
-  font-size: 1.1em;
+  font-size: clamp(0.9em, 2.5vw, 1.1em);
   white-space: nowrap;
 }
 
@@ -104,11 +107,12 @@ button:active {
   box-shadow: none;
 }
 
-section>div {
+section > div {
   display: flex;
   gap: 10px;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 form {
@@ -116,18 +120,23 @@ form {
   gap: 10px;
   align-items: center;
   margin: 0;
+  flex-wrap: wrap;
+}
 
-  input[type="text"] {
-    border-radius: 25px;
-    padding: 15px 20px;
-    font-size: 1.1em;
-    border: 3px solid #f5ebe0;
-    color: #3e3b38;
-    background-color: #fff9f4;
-    flex-grow: 1;
-    min-width: 100px;
-    width: 180px;
-  }
+form input[type="text"] {
+  border-radius: 20px;
+  padding: clamp(10px, 3vw, 15px) clamp(15px, 4vw, 20px);
+  font-size: clamp(0.9em, 2.5vw, 1.1em);
+  border: 2px solid #f5ebe0;
+  color: #3e3b38;
+  background-color: #fff9f4;
+  flex-grow: 1;
+  min-width: 150px;
+}
+
+h2 {
+  font-size: clamp(1.2em, 4vw, 1.5em);
+  margin: 0.5em 0;
 }
 
 .error h1 {
@@ -140,9 +149,11 @@ form {
 
 .error,
 .success {
-  padding: 40px;
-  
-  h1 {
-    margin-top: 0;
-  }
+  padding: clamp(20px, 5vw, 40px);
+}
+
+.error h1,
+.success h1 {
+  margin-top: 0;
+  font-size: clamp(1.5em, 5vw, 2em);
 }

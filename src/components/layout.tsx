@@ -13,6 +13,7 @@ export const Layout: FC<{ title: string; children: Child }> = ({
           @import
           url('https://fonts.googleapis.com/css2?family=Sono:wght,MONO@200..800,1&display=swap');
         </style>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </head>
       <body>
         <main>

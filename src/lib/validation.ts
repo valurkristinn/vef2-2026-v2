@@ -1,8 +1,7 @@
-import { z } from 'zod';
-
+import { z } from "zod";
 
 export const todoSchema = z.object({
   id: z.coerce.number(),
-  title: z.string(),
-  finished: z.coerce.boolean()
-})
+  title: z.string().trim().min(1).max(255),
+  finished: z.coerce.boolean(),
+});

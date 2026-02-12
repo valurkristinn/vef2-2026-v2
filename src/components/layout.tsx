@@ -5,7 +5,7 @@ export const Layout: FC<{ title: string, children: Child }> = ({ title, children
     <html>
       <head>
         <title>{title}</title>
-        <link rel="stylesheet" href="./styles.css" />
+        <link rel="stylesheet" href="./static/styles.css" />
       </head>
       <body>
         <main>

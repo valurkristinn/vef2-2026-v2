@@ -1,6 +1,6 @@
 import { Hono } from "hono";
 import { serveStatic } from "@hono/node-server/serve-static";
-import { TodoPage } from "./components/TodoPage.js";
+import { TodoPage } from "./components/todoPage.js";
 import {
   init,
   listTodos,
@@ -12,7 +12,7 @@ import {
 import { Layout } from "./components/layout.js";
 import { todoSchema } from "./lib/validation.js";
 import { z } from "zod";
-import { ErrorPage } from "./components/errorPage.js";
+import { OtherPage } from "./components/otherPage.js";
 
 // búum til og exportum Hono app
 export const app = new Hono();
@@ -39,19 +39,28 @@ app.get("/", async (c) => {
 app.post("/add", async (c) => {
   const body = await c.req.parseBody();
 
-  const result = todoSchema.safeParse(body);
+  const result = todoSchema.safeParse({
+    id: "0",
+    title: body.title,
+    finished: "on",
+  });
 
   if (!result.success) {
     console.error(z.flattenError(result.error));
     return c.html(
-      <ErrorPage>
+      <OtherPage error="x">
+        <h1>Villa kom upp!</h1>
         <p>Ranglega formaður strengur</p>
-      </ErrorPage>,
+      </OtherPage>,
     );
   }
   createTodo(result.data.title);
 
-  return c.text("móttekið!");
+  return c.html(
+    <OtherPage>
+      <h1>Móttekið!</h1>
+    </OtherPage>,
+  );
 });
 
 app.post("/update/:id", async (c) => {
@@ -65,32 +74,14 @@ app.post("/update/:id", async (c) => {
   if (!result.success) {
     console.error(z.flattenError(result.error));
     return c.html(
-      <ErrorPage>
+      <OtherPage error="x">
+        <h1>Villa kom upp!</h1>
         <p>Reyndu aftur síðar</p>
-      </ErrorPage>,
+      </OtherPage>,
     );
   }
 
   await updateTodo(result.data.id, result.data.title, result.data.finished);
-
-  return c.redirect("/");
-});
-
-app.post("/delete/:id", async (c) => {
-  const id = c.req.param("id");
-
-  const result = todoSchema.safeParse({ id: id });
-
-  if (!result.success) {
-    console.error(z.flattenError(result.error));
-    return c.html(
-      <ErrorPage>
-        <p>Reyndu aftur síðar</p>
-      </ErrorPage>,
-    );
-  }
-
-  await deleteTodo(result.data.id);
 
   return c.redirect("/");
 });
@@ -101,10 +92,33 @@ app.post("/delete/finished", async (c) => {
   return c.redirect("/");
 });
 
+app.post("/delete/:id", async (c) => {
+  const id = c.req.param("id");
+
+  const todo = { id: id, title: "filler", finished: "on" };
+
+  const result = todoSchema.safeParse(todo);
+
+  if (!result.success) {
+    console.error(z.flattenError(result.error));
+    return c.html(
+      <OtherPage error="x">
+        <h1>Villa kom upp!</h1>
+        <p>Reyndu aftur síðar</p>
+      </OtherPage>,
+    );
+  }
+
+  await deleteTodo(result.data.id);
+
+  return c.redirect("/");
+});
+
 app.notFound((c) => {
   return c.html(
-    <ErrorPage>
+    <OtherPage error="x">
+      <h1>Villa kom upp!</h1>
       <p>Síða fannst ekki</p>
-    </ErrorPage>,
+    </OtherPage>,
   );
 });

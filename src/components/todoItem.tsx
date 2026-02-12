@@ -15,8 +15,10 @@ export const TodoItem: FC<{ todo: Todo }> = ({ todo }) => {
         >
           <label htmlFor="f">Finished</label>
         </input>
-        <input type="hidden" name="id" value={todo.id}></input>
         <input type="hidden" name="title" value={todo.title}></input>
+      </form>
+      <form method="post" action={`/delete/${todo.id}`}>
+        <button>Eyða</button>
       </form>
     </article>
   );

@@ -1,6 +1,7 @@
 import { Hono } from "hono";
+import { z } from "zod";
+
 import { serveStatic } from "@hono/node-server/serve-static";
-import { TodoPage } from "./components/todoPage.js";
 import {
   init,
   listTodos,
@@ -11,7 +12,7 @@ import {
 } from "./lib/db.js";
 import { Layout } from "./components/layout.js";
 import { todoSchema } from "./lib/validation.js";
-import { z } from "zod";
+import { TodoPage } from "./components/TodoPage.js";
 import { OtherPage } from "./components/otherPage.js";
 
 // búum til og exportum Hono app
